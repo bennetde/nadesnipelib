@@ -73,7 +73,7 @@ public class DemoLineupParser {
                     throwTypeMask |= 0b10;
                 }
                 if(pawn.MovementServices!.DesiresDuck) {
-                    Console.WriteLine("Duck Jump");
+                    // Console.WriteLine("Duck Jump");
                     throwTypeMask |= 0b100;
                 }
                 

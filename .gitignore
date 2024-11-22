@@ -5,3 +5,6 @@ obj
 # CS2 replay files
 *.dem
 *.dem.txt
+
+# Benchmarking
+BenchmarkDotNet.Artifacts/

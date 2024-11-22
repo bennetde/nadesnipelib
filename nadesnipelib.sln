@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NadeSnipe.Cli", "NadeSnipe.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NadeSnipe.Wasm", "NadeSnipe.Wasm\NadeSnipe.Wasm.csproj", "{2BFA16D4-4443-4852-9FF1-839471DA70F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NadeSnipe.Benchmarks", "NadeSnipe.Benchmarks\NadeSnipe.Benchmarks.csproj", "{F665E85C-DAFA-4659-8E67-41FCFCFEE942}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{2BFA16D4-4443-4852-9FF1-839471DA70F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BFA16D4-4443-4852-9FF1-839471DA70F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BFA16D4-4443-4852-9FF1-839471DA70F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F665E85C-DAFA-4659-8E67-41FCFCFEE942}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F665E85C-DAFA-4659-8E67-41FCFCFEE942}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F665E85C-DAFA-4659-8E67-41FCFCFEE942}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F665E85C-DAFA-4659-8E67-41FCFCFEE942}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

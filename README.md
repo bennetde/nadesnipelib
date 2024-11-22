@@ -18,3 +18,7 @@ Test Suite for the libray using xUnit.
 ## ./NadeSnipe.Wasm
 
 JavaScript-Interop of the library using WebAssembly.
+
+## ./NadeSnipe.Benchmarks
+
+Benchmarking functionality.
