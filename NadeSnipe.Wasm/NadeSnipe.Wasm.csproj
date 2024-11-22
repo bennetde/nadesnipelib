@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WebAssembly">
+
+  <ItemGroup>
+    <ProjectReference Include="..\NadeSnipe\NadeSnipe.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-browser</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PublishTrimmed>true</PublishTrimmed>
+    <JsonSerializerIsReflectionEnabledByDefault>true</JsonSerializerIsReflectionEnabledByDefault>
+  </PropertyGroup>
+</Project>

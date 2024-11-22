@@ -1,0 +1,7 @@
+# Build files
+bin
+obj
+
+# CS2 replay files
+*.dem
+*.dem.txt
