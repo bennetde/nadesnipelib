@@ -4,11 +4,14 @@ using NadeSnipe;
 public class BenchmarkLargeDemo {
     
     private string _path;
-    // private FileStream _stream;
+
+    // Read all contents to a buffer beforehand to remove System IO overehead from benchmarking.
+    byte[] _buffer;
     public BenchmarkLargeDemo() {
         _path = Environment.CurrentDirectory + "/../../../../../../../../NadeSnipe.Tests/demos/example_ancient.dem";
+        _buffer = File.ReadAllBytes(_path);
     }
 
     [Benchmark]
-    public async Task Parse() => await new DemoLineupParser(File.OpenRead(_path)).Parse();
+    public async Task Parse() => await new DemoLineupParser(new MemoryStream(_buffer)).Parse();
 }
