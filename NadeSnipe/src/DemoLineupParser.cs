@@ -86,7 +86,7 @@ public class DemoLineupParser {
                     Console.WriteLine($"{playerController.PlayerName} previously threw a lineup that was not cleared by a smoke projectile.");
                 }
                 _lastThrownLineups[pawn.EntityIndex] = lineup;
-                Lineups.Add(lineup);        
+                Lineups.Add(lineup);
             }
         };
 
@@ -96,9 +96,13 @@ public class DemoLineupParser {
             CSmokeGrenadeProjectile g = e;
             var playerPawn = (CCSPlayerPawn)g.OwnerEntity!;
             var playerController = playerPawn.Controller!;
-            // Console.WriteLine($"Create smoke by {playerController.PlayerName}  in round {GetRound(demo)}");
+
             if(!_lastThrownLineups.ContainsKey(playerPawn.EntityIndex)) {
-                Console.WriteLine($"New smoke projectile without lineup thrown by {playerPawn?.Controller?.PlayerName} at {playerPawn?.Origin} in tick {demo.TeamCounterTerrorist.Score + demo.TeamTerrorist.Score}");
+                // Ignore smoke grenades where the player died while priming a grenade.
+                if(!playerPawn.IsAlive) {
+                    return;
+                }
+                Console.WriteLine($"New smoke projectile without lineup thrown by {playerPawn?.Controller?.PlayerName} at {playerPawn?.Origin} in round {GetRound(demo)}");
                 return;
             }
 
@@ -106,15 +110,12 @@ public class DemoLineupParser {
             _lastThrownLineups.Remove(playerPawn.EntityIndex);
         };
 
-        // demo.EntityEvents.CCSPlayerPawn.AddChangeCallback(pawn => pawn.MovementServices.DesiresDuck, (p, oldT, newT) => {
-        //     Console.WriteLine(newT);
-        // });
-
         demo.Source1GameEvents.SmokegrenadeDetonate += e => {
             Source1SmokegrenadeDetonateEvent ev = e;
             var entityIndex = new CEntityIndex((uint)ev.Entityid);
             if(!_activeNades.ContainsKey(entityIndex)) {
-                // Console.WriteLine("Untracked Smoke Grenade detonated");
+                // Grenades that were thrown by dead players are ignored.
+                if(!ev.PlayerPawn!.IsAlive) return;
                 throw new Exception("Untracked Smoke Grenade detonated");
             }
 
@@ -127,13 +128,6 @@ public class DemoLineupParser {
         demo.EntityEvents.CCSPlayerPawn.AddChangeCallback(pawn => pawn.MovementServices!.OldJumpPressed, (pawn, old, newT) => {
             // Console.WriteLine($"OldJump detected {pawn.Origin}");
             _jumpingPlayerOriginalPositions[pawn.EntityIndex] = new Vector3(pawn.Origin.X, pawn.Origin.Y, pawn.Origin.Z - 1.5f);
-        });
-
-        demo.EntityEvents.CCSPlayerPawn.AddChangeCallback(pawn => pawn.MovementServices!.ButtonDownMaskPrev, (pawn, old, newT) => {
-            // if(newT == InputButtons.Jump) {
-            //     Console.WriteLine($"Input Jump detected {pawn.Origin}");
-            // }
-            // Console.WriteLine($"Movement detected {newT}");
         });
 
         // Dont track any smokes after round end
