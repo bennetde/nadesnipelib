@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using NadeSnipe.Annotations;
 using NadeSnipe.Math;
 
@@ -17,6 +18,10 @@ public enum ThrowType {
     ForwardCrouchJump = 0b111,
     ForwardCrouch = 0b101,
 }
+public enum Team {
+    CounterTerrorist,
+    Terrorist
+}
 
 public class Lineup {
     public Vector3 Origin { get; set; }
@@ -26,18 +31,34 @@ public class Lineup {
     public GrenadeType GrenadeType { get; set; }
     public ThrowType ThrowType { get; set; }
     public Vector3? DetonationOrigin { get; set; }
+    public Team Team { get; set;}
 
     public bool IsJumpThrow() {
         return ((int)ThrowType & 0b10) > 0;
     }
 
-    public Lineup(Vector3 origin, Vector3 angle, Vector3 eyePos, string playerName, GrenadeType grenadeType, ThrowType throwType) {
+    public Lineup(Vector3 origin, Vector3 angle, Vector3 eyePos, string playerName, GrenadeType grenadeType, ThrowType throwType, Team team) {
         Origin = origin;
         Angle = angle;
         EyeOffset = eyePos;
         PlayerName = playerName;
         GrenadeType = grenadeType;
         ThrowType = throwType;
+        Team = team;
+    }
+
+    /// <summary>
+    /// Needed for JSON deserialization. Do not use.
+    /// </summary>
+    [JsonConstructor]
+    public Lineup() {
+        // Origin = Vector3.Zero;
+        // Angle = Vector3.Zero;
+        // EyeOffset = Vector3.Zero;
+        // PlayerName = "";
+        // GrenadeType = GrenadeType.HE;
+        // ThrowType = ThrowType.Normal;
+        // Team = Team.Terrorist;
     }
 
 

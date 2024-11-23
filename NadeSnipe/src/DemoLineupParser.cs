@@ -46,6 +46,10 @@ public class DemoLineupParser {
                 var playerName = playerController.PlayerName;
                 var velocity = _playerVelocities[pawn.EntityIndex];
                 var verticalVelocity = velocity.Z;
+
+                var isTerrorist = pawn.CSTeamNum == CSTeamNumber.Terrorist;
+                var team = isTerrorist ? Team.Terrorist : Team.CounterTerrorist;
+
                 velocity.Z = 0.0f;
 
                 if(_jumpingPlayerOriginalPositions.ContainsKey(pawn.EntityIndex)) {
@@ -77,7 +81,7 @@ public class DemoLineupParser {
                     throwTypeMask |= 0b100;
                 }
                 
-                var lineup = new Lineup(pos, angle, eyePos, playerName, GrenadeType.Smoke, (ThrowType)throwTypeMask);
+                var lineup = new Lineup(pos, angle, eyePos, playerName, GrenadeType.Smoke, (ThrowType)throwTypeMask, team);
                 if(_lastThrownLineups.ContainsKey(pawn.EntityIndex)) {
                     Console.WriteLine($"{playerController.PlayerName} previously threw a lineup that was not cleared by a smoke projectile.");
                 }

@@ -15,10 +15,10 @@ public class AnnotationFile {
         MapAnnotationNodes = new();
     }
 
-    public static AnnotationFile FromLineups(DemoLineupParser lineups) {
+    public static AnnotationFile FromLineups(List<Lineup> lineups, string mapName) {
         AnnotationFile annotationFile = new();
-        annotationFile.MapName = lineups.MapName;
-        annotationFile.MapAnnotationNodes = lineups.Lineups.SelectMany(x => x.ToGrenadeNode()).Take(99).ToList();
+        annotationFile.MapName = mapName;
+        annotationFile.MapAnnotationNodes = lineups.SelectMany(x => x.ToGrenadeNode()).Take(99).ToList();
 
         return annotationFile;
     }

@@ -19,6 +19,12 @@ public class Vector3 {
         Z = z;
     }
 
+    public Vector3() {
+        X = 0;
+        Y = 0;
+        Z = 0;
+    }
+
     public Vector3(Vector vector) {
         X = vector.X;
         Y = vector.Y;
