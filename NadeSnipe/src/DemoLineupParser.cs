@@ -35,10 +35,6 @@ public class DemoLineupParser {
                 CCSPlayerPawn pawn = e.PlayerPawn!; 
                 CCSPlayerController playerController = e.Player!;
 
-                // Console.WriteLine($"Fire smoke by {playerController.PlayerName} in round {GetRound(demo)}");
-                // var smokeId = ev.PlayerPaw
-
-                // Console.WriteLine($"smoke thrown from {e.PlayerPawn?.Origin}, direction {e.PlayerPawn?.EyeAngles}");
                 var pos = new Vector3(pawn.Origin.X, pawn.Origin.Y, pawn.Origin.Z);
                 var angle = new Vector3(pawn.EyeAngles.Pitch, pawn.EyeAngles.Yaw, pawn.EyeAngles.Roll);
                 var eyePos = new Vector3(pawn.ViewOffset.X, pawn.ViewOffset.Y, pawn.ViewOffset.Z);
@@ -46,6 +42,8 @@ public class DemoLineupParser {
                 var playerName = playerController.PlayerName;
                 var velocity = _playerVelocities[pawn.EntityIndex];
                 var verticalVelocity = velocity.Z;
+
+                var round = GetRound(demo);
 
                 var isTerrorist = pawn.CSTeamNum == CSTeamNumber.Terrorist;
                 var team = isTerrorist ? Team.Terrorist : Team.CounterTerrorist;
@@ -81,7 +79,7 @@ public class DemoLineupParser {
                     throwTypeMask |= 0b100;
                 }
                 
-                var lineup = new Lineup(pos, angle, eyePos, playerName, GrenadeType.Smoke, (ThrowType)throwTypeMask, team);
+                var lineup = new Lineup(pos, angle, eyePos, playerName, GrenadeType.Smoke, (ThrowType)throwTypeMask, round, team);
                 if(_lastThrownLineups.ContainsKey(pawn.EntityIndex)) {
                     Console.WriteLine($"{playerController.PlayerName} previously threw a lineup that was not cleared by a smoke projectile.");
                 }
@@ -90,12 +88,24 @@ public class DemoLineupParser {
             }
         };
 
+        // demo.EntityEvents.CSmokeGrenade.AddChangeCallback(x => x.JumpThrow, (smoke, oldVal, newVal) => {
+        //     if (smoke.JumpThrow) {
+        //         Console.WriteLine("Jump throw");
+        //     }
+        // });
+
+        // demo.EntityEvents.CSmokeGrenade.AddChangeCallback(x => x.ThrowTime, (smoke, old, newt) => {
+        //     Console.WriteLine($"{smoke.FireSequenceStartTime} throw other");
+        // });
+
         // This event is used to connect a grenade projectile with a lineup as the `Source1WeaponFireEvent` event does not 
         // include a projectile entity.
         demo.EntityEvents.CSmokeGrenadeProjectile.Create += e => {
+            // Console.WriteLine("")
             CSmokeGrenadeProjectile g = e;
             var playerPawn = (CCSPlayerPawn)g.OwnerEntity!;
             var playerController = playerPawn.Controller!;
+            // var smoke = g.Smok
 
             if(!_lastThrownLineups.ContainsKey(playerPawn.EntityIndex)) {
                 // Ignore smoke grenades where the player died while priming a grenade.

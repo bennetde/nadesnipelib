@@ -1,11 +1,21 @@
 using System.Text.Json.Serialization;
 using NadeSnipe.Annotations;
 using NadeSnipe.Math;
+using NadeSnipe.Serializer.Attributes;
 
 namespace NadeSnipe;
 
 public enum GrenadeType {
-    HE, Flashbang, Molotov, Smoke, Decoy
+    [Kv3StringValue("he")]
+    HE, 
+    [Kv3StringValue("flashbang")]
+    Flashbang,
+    [Kv3StringValue("molotov")]
+    Molotov, 
+    [Kv3StringValue("smoke")]
+    Smoke, 
+    [Kv3StringValue("decoy")]
+    Decoy
 }
 
 public enum ThrowType {
@@ -31,19 +41,21 @@ public class Lineup {
     public GrenadeType GrenadeType { get; set; }
     public ThrowType ThrowType { get; set; }
     public Vector3? DetonationOrigin { get; set; }
+    public int Round { get; set; }
     public Team Team { get; set;}
 
     public bool IsJumpThrow() {
         return ((int)ThrowType & 0b10) > 0;
     }
 
-    public Lineup(Vector3 origin, Vector3 angle, Vector3 eyePos, string playerName, GrenadeType grenadeType, ThrowType throwType, Team team) {
+    public Lineup(Vector3 origin, Vector3 angle, Vector3 eyePos, string playerName, GrenadeType grenadeType, ThrowType throwType, int round, Team team) {
         Origin = origin;
         Angle = angle;
         EyeOffset = eyePos;
         PlayerName = playerName;
         GrenadeType = grenadeType;
         ThrowType = throwType;
+        Round = round;
         Team = team;
     }
 
@@ -78,7 +90,7 @@ public class Lineup {
         var aimTargetOrigin = Origin + rotated + Vector3.UnitZ * EyeOffset.Z;
 
         MapAnnotationNode[] nodes = DetonationOrigin != Vector3.Zero ? new MapAnnotationNode[3] : new MapAnnotationNode[2];
-        var mainNode = new MainGrenadeAnnotation(Origin, new Vector3(0.0f, Angle.Y, 0.0f), PlayerName, "");
+        var mainNode = new MainGrenadeAnnotation(Origin, new Vector3(0.0f, Angle.Y, 0.0f), GrenadeType, PlayerName, "");
         mainNode.JumpThrow = IsJumpThrow();
         var aimTargetNode = new AimTargetGrenadeAnnotation(aimTargetOrigin, Angle, "Aim Target", ThrowType.ToString(), mainNode.Id);
         

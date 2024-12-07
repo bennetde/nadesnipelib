@@ -6,7 +6,8 @@ public class MainGrenadeAnnotation : MapAnnotationNode
     public int StreakLimitGuidesOff { get; set; }
     public int StreakLimitGuidesOn { get; set; }
     public bool JumpThrow { get; set; }
-    public MainGrenadeAnnotation(Vector3 position, Vector3 angle, string title, string description) : base(position, angle, title, description)
+    public GrenadeType GrenadeType {get; set; }
+    public MainGrenadeAnnotation(Vector3 position, Vector3 angle, GrenadeType grenadeType, string title, string description) : base(position, angle, title, description)
     {
         AnnotationType = AnnotationType.Grenade;
         SubType = SubType.Main;
@@ -15,6 +16,7 @@ public class MainGrenadeAnnotation : MapAnnotationNode
         JumpThrow = false;
         Title = AnnotationText.FromMainTitle($"Thrown by {title}");
         Desc = AnnotationText.FromMainDescription(description);
+        GrenadeType = grenadeType;
 
     }
 }
