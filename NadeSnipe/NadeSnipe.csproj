@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DemoFile.Game.Cs" Version="0.27.1" />
+    <PackageReference Include="DemoFile.Game.Cs" Version="0.29.1" />
   </ItemGroup>
 
 </Project>
