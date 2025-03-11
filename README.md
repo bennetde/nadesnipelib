@@ -12,6 +12,8 @@ The actual code of the library.
 ## ./NadeSnipe.Cli
 
 Command-Line-Interface for quickly exporting lineups from demos.
+`Usage: NadeSnipe.Cli <path to .dem>`
+Outputs a .txt KV3 file in the same directory as the input file.
 
 ## ./NadeSnipe.Tests
 
