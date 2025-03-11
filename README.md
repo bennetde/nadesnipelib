@@ -3,6 +3,8 @@
 This is the backend library for parsing grenade lineups from Counter-Strike 2 replay files.
 It is separated in further sub-projects.
 
+The hosted frontend using WASM can be found here: https://bennet.me/nadesnipe/
+
 ## ./NadeSnipe
 
 The actual code of the library. 
