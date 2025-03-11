@@ -13,6 +13,10 @@ public class Kv3Serializer: IDisposable {
     private int Indentation { get; set; }
 
     public Kv3Serializer(Stream stream) {
+        System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+        customCulture.NumberFormat.NumberDecimalSeparator = ".";
+
+        System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
         Stream = new StreamWriter(stream, new UTF8Encoding());
         Stream.NewLine = "\n";
         Indentation = 0;
