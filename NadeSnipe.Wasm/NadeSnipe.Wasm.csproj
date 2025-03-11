@@ -12,6 +12,6 @@
     <PublishTrimmed>true</PublishTrimmed>
     <JsonSerializerIsReflectionEnabledByDefault>true</JsonSerializerIsReflectionEnabledByDefault>
     <RunAOTCompilation>true</RunAOTCompilation>
-    <WasmStripILAfterAOT>true</WasmStripILAfterAOT>
+    <WasmStripILAfterAOT>false</WasmStripILAfterAOT>
   </PropertyGroup>
 </Project>

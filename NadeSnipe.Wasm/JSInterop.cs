@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices.JavaScript;
 using System.Text;
 using System.Text.Json;
@@ -20,6 +21,7 @@ public static partial class JSInterop
     }
 
     [JSExport]
+    [RequiresUnreferencedCode("Calls System.Text.Json.JsonSerializer.Serialize<TValue>(TValue, JsonSerializerOptions)")]
     internal static async Task<string> ReadDemo(byte[] buffer) {
         Stream stream = new MemoryStream(buffer);
         var demo = new DemoLineupParser(stream);
