@@ -27,6 +27,9 @@ public static partial class JSInterop
         var demo = new DemoLineupParser(stream);
         await demo.Parse();
 
+        // Without this WriteLine, it looks like MapName gets trimmed away by WASM.
+
+        Console.WriteLine(demo.MapName);
         return JsonSerializer.Serialize(demo);
     }
 

@@ -22,7 +22,7 @@ public class DemoLineupParser {
     public DemoLineupParser(Stream demo) {
         DemoFile = demo;
         Lineups = new();
-        MapName = "";
+        MapName = "notSet";
     }
 
     public async Task Parse() {
@@ -178,5 +178,9 @@ public class DemoLineupParser {
 
     private int GetRound(CsDemoParser demo) {
         return demo.TeamCounterTerrorist.Score + demo.TeamTerrorist.Score + 1;
+    }
+
+    public string GetMap() {
+        return MapName;
     }
 }

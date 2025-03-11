@@ -12,6 +12,7 @@
     <PublishTrimmed>true</PublishTrimmed>
     <JsonSerializerIsReflectionEnabledByDefault>true</JsonSerializerIsReflectionEnabledByDefault>
     <RunAOTCompilation>true</RunAOTCompilation>
-    <WasmStripILAfterAOT>false</WasmStripILAfterAOT>
+    <WasmStripILAfterAOT>true</WasmStripILAfterAOT>
+    <_ExtraTrimmerArgs>--keep-metadata parametername</_ExtraTrimmerArgs>
   </PropertyGroup>
 </Project>
